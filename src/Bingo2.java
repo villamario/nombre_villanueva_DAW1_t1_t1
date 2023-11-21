@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Bingo2 {
     /*
 - Utilizar un arrays para guardad los 10 números del carton
@@ -24,6 +26,14 @@ public class Bingo2 {
         int[] sorteo = new int[99];
         int[] NumerosAleatorios = new int[99];
         boolean control;
+        int CantoLinea=0;
+        int CantoBingo=0;
+        int IntentosLinea=0;
+        int IntentosBingo=0;
+
+        Scanner teclado= new Scanner(System.in);
+        System.out.println("Tu apuesta:");
+        int apuesta = teclado.nextInt();
 
         for (int i = 0; i < carton.length; i++) {
             carton[i] = (int) ((Math.random() * 99) + 1);
@@ -82,11 +92,39 @@ public class Bingo2 {
 
             } while (control);
             sorteo[e] = NumerosAleatorios[e];
+
+            for (int j = 0; j < carton.length; j++) {
+                if (carton[j]==NumerosAleatorios[e]){
+
+                    CantoLinea++;
+                    if (CantoLinea==5){
+                        IntentosLinea = e;
+                    }
+                    CantoBingo++;
+                    if (CantoBingo==10){
+                        IntentosBingo = e;
+                    }
+
+                }
+            }
         }
+
+
 
         System.out.println("\n" + "sorteo");
         for (int e = 0; e < sorteo.length; e++) {
             System.out.print (sorteo[e]+"\t");
         }
+
+        System.out.println();
+
+        System.out.println("intentos linea "+IntentosLinea);
+        System.out.println("intentos bingo "+IntentosBingo);
+        if (IntentosBingo==apuesta){
+            System.out.println("Tu premio es: " +apuesta*10);
+        }else {
+            System.out.println("Apuesta no premiada");
+        }
     }
-    }
+
+}
