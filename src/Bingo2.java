@@ -75,7 +75,7 @@ public class Bingo2 {
 
 //sorteo
 
-        for (int e = 0; e < sorteo.length; e++) {
+        for (int e = 0; e < sorteo.length && CantoBingo < carton.length; e++) {
             control = false;
             do {
                 control = false;
