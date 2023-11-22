@@ -30,27 +30,45 @@ public class Bingo2 {
         int CantoBingo=0;
         int IntentosLinea=0;
         int IntentosBingo=0;
+        int CartonNuevo;
 
         Scanner teclado= new Scanner(System.in);
         System.out.println("Tu apuesta:");
         int apuesta = teclado.nextInt();
 
+        Scanner teclado2= new Scanner(System.in);
+        System.out.println("Cuantos intentos prevees:");
+        int intentos = teclado2.nextInt();
+
         for (int i = 0; i < carton.length; i++) {
-            carton[i] = (int) ((Math.random() * 99) + 1);
+
+            do {
+                control = false;
+                CartonNuevo = (int) ((Math.random() * 20) + 1);
+
+                for (int j = 0; j < i; j++) {
+                    if (carton[j] == CartonNuevo) {
+                        control = true;
+                        break;
+                    }
+                }
+            } while (control);
+
+            carton[i] = CartonNuevo;
         }
 
         // carton
 
 
         for (int i = 0; i < NumerosAleatorios.length; i++) {
-            NumerosAleatorios[i] = (int) ((Math.random() * 99) + 1);
+            NumerosAleatorios[i] = (int) ((Math.random() * 20) + 1);
         }
 
         for (int i = 0; i < carton.length; i++) {
             control = false;
             do {
                 control = false;
-                for (int j = 0; j < NumerosAleatorios.length; j++) {
+                for (int j = 0; j < i; j++) {
                     if (NumerosAleatorios[j] == carton[i]) {
                         control = true;
                         break;
@@ -58,7 +76,7 @@ public class Bingo2 {
                 }
 
                 if (control) {
-                    carton[i] = (int) ((Math.random() * 99) + 1);
+                    carton[i] = (int) ((Math.random() * 20) + 1);
                 }
 
             } while (control);
@@ -70,41 +88,39 @@ public class Bingo2 {
         }
 
         for (int i = 0; i < carton.length; i++) {
-            carton[i] = (int) ((Math.random() * 99) + 1);
+            carton[i] = (int) ((Math.random() * 20) + 1);
         }
 
 //sorteo
 
-        for (int e = 0; e < sorteo.length && CantoBingo < carton.length; e++) {
+        for (int e = 0; e < sorteo.length && CantoBingo < 10; e++) {
             control = false;
             do {
                 control = false;
+                NumerosAleatorios[e] = (int) ((Math.random() * 99) + 1);
+
                 for (int x = 0; x < e; x++) {
-                    if (sorteo[x] == NumerosAleatorios[e]) {
+                    if (NumerosAleatorios[x] == NumerosAleatorios[e]) {
                         control = true;
                         break;
                     }
                 }
 
-                if (control) {
-                    NumerosAleatorios[e] = (int) ((Math.random() * 99) + 1);
-                }
-
             } while (control);
+
             sorteo[e] = NumerosAleatorios[e];
 
             for (int j = 0; j < carton.length; j++) {
-                if (carton[j]==NumerosAleatorios[e]){
-
+                if (carton[j] == NumerosAleatorios[e]) {
                     CantoLinea++;
-                    if (CantoLinea==5){
+                    if (CantoLinea == 5) {
                         IntentosLinea = e;
                     }
                     CantoBingo++;
-                    if (CantoBingo==10){
+                    if (CantoBingo == 10) {
                         IntentosBingo = e;
+                        break;  // Salir del bucle una vez que se alcanza el bingo
                     }
-
                 }
             }
         }
@@ -120,7 +136,7 @@ public class Bingo2 {
 
         System.out.println("intentos linea "+IntentosLinea);
         System.out.println("intentos bingo "+IntentosBingo);
-        if (IntentosBingo==apuesta){
+        if (IntentosBingo==intentos){
             System.out.println("Tu premio es: " +apuesta*10);
         }else {
             System.out.println("Apuesta no premiada");
