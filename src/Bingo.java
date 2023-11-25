@@ -117,7 +117,7 @@ public class Bingo {
                     cantoBingo++;
                     if (cantoBingo == 10) {
                         intentosBingo = e;
-                        break;  // Salir del bucle una vez que se alcanza el bingo
+                        break;
                     }
                 }
             }
